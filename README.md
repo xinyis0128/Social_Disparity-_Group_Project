@@ -1,15 +1,4 @@
 # Social_Disparity-_Group_Project
----
-title: "Social Disparity Group Project-Summary"
-output:
-  html_document: default
-  pdf_document: default
-date: "9/24/2020"
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 Social Disparity is a large topic. The major examples of social inequality include income gap, racial and ethnic inequality, gender inequality, healthcare and social class. Actually, it exists in every society.
 
