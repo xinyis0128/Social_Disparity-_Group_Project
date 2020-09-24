@@ -1,4 +1,4 @@
-# Social_Disparity-_Group_Project
+# Social_Disparity_Group_Project
 
 Social Disparity is a large topic. The major examples of social inequality include income gap, racial and ethnic inequality, gender inequality, healthcare and social class. Actually, it exists in every society.
 
