@@ -31,7 +31,7 @@ Deal with missing value and categorical variables (eg. sort), remove unneeded da
 
 For this part, we would apply statistical hypoethesis testing and modeling to solve research questions of this project.
 
-**Time Trend Analysis **
+**Time Trend Analysis**
 
 For this part, we mainly want to investigate the time trend of social disparity. We will mainly use data visualization and dashboards to see the time trend and get interesting findings to follow up. If necessary, we will also try to apply time series analysis.
 
