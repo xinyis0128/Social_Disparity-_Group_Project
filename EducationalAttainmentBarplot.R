@@ -41,8 +41,8 @@ bar_plot_table <- matrix(c(as.vector(unlist(asian_grad_percentage)),
                   as.vector(unlist(black_grad_percentage)),
                   as.vector(unlist(hispanic_grad_percentage))),
                   ncol = 4, byrow = TRUE)
-colnames(mytab) <- c(2016, 2017, 2018, 2019)
-rownames(mytab) <- c("Asian", "White", "Black", "Hispanic")
+colnames(bar_plot_table) <- c(2016, 2017, 2018, 2019)
+rownames(bar_plot_table) <- c("Asian", "White", "Black", "Hispanic")
 
 barplot(bar_plot_table, main = "Percentage of Population with College Degrees",
         xlab = "Year", ylab = "Percentage", 
