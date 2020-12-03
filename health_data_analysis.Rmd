@@ -1,7 +1,4 @@
 ---
-title: "social disparity_covid"
-author: "Lina Lee"
-date: "12/2/2020"
 output: pdf_document
 ---
 
@@ -10,17 +7,16 @@ output: pdf_document
 covidDat<-read.csv("./data/RaceDataEntryCRDT.csv")
 popDat<-read.csv("./data/StatePopulation.csv")
 
-
-
 library(tidyverse)
 
 # transforming character values of number into numeric values
 df<-popDat%>%mutate(Total.population=as.numeric(gsub(",","",Total.population)),
-                    Hispanic..of.any.race.=as.numeric(gsub(",","",Hispanic..of.any.race.)),
-                    Non.Hispanic.White=as.numeric(gsub(",","",Non.Hispanic.White)),
-                    Non.Hispanic.Black=as.numeric(gsub(",","",Non.Hispanic.Black)),
-                    Non.Hispanic.Asian=as.numeric(gsub(",","",Non.Hispanic.Asian)),
-                    Non.Hispanic.American.Indian=as.numeric(gsub(",","",Non.Hispanic.American.Indian)))
+  Hispanic..of.any.race.=as.numeric(gsub(",","",Hispanic..of.any.race.)),
+  Non.Hispanic.White=as.numeric(gsub(",","",Non.Hispanic.White)),
+  Non.Hispanic.Black=as.numeric(gsub(",","",Non.Hispanic.Black)),
+  Non.Hispanic.Asian=as.numeric(gsub(",","",Non.Hispanic.Asian)),
+  Non.Hispanic.American.Indian=as.numeric(gsub(",","",
+                                               Non.Hispanic.American.Indian)))
 names(df)<-c("state","pop","Hispanic","White","Black","Asian","NHAI")
 
 # transform population data from wide to long format
@@ -53,11 +49,14 @@ coviddf<-covidDat%>%
   filter(Cases_Total!="0")%>%
   filter(Cases_White!="0")%>%
   filter(Cases_White!="")%>%
-  mutate(Cases_Total=as.numeric(Cases_Total),Cases_White=as.numeric(Cases_White))%>%
-  select(Date,State,Deaths_White,Deaths_Black,Deaths_LatinX,Deaths_Asian,Deaths_AIAN,Deaths_NHPI,Deaths_Multiracial)
+  mutate(Cases_Total=as.numeric(Cases_Total),
+         Cases_White=as.numeric(Cases_White))%>%
+  select(Date,State,Deaths_White,Deaths_Black,Deaths_LatinX,
+         Deaths_Asian,Deaths_AIAN,Deaths_NHPI,Deaths_Multiracial)
 
 library(dplyr)
-names(coviddf)<-c("Date","State","White","Black","Hispanic","Asian","NHAI","NHPI","multi")
+names(coviddf)<-c("Date","State","White","Black","Hispanic",
+                  "Asian","NHAI","NHPI","multi")
 
 # sum death numbers over all the period 
 coviddf_sum<-coviddf[,-1] %>% group_by(State) %>% summarise_each(funs(sum))
@@ -80,7 +79,8 @@ finaldf<-combdf2%>%
 # we will highlight the states which is indicated here
 finaldf$ind<-NA
 for(i in 1:length(finaldf$ind)){
-finaldf$ind[i]<-ifelse(i %in% which(finaldf$death_rate>=(1.33*finaldf$race_rate)),"1","0")
+finaldf$ind[i]<-
+  ifelse(i %in% which(finaldf$death_rate>=(1.33*finaldf$race_rate)),"1","0")
 }
 finaldf$ToHighlight<-finaldf$ind
 
@@ -89,11 +89,14 @@ finaldf$ToHighlight<-finaldf$ind
 
 # generate barchart for white group
 ggplot()+
-  geom_bar(aes(x=State,y=death_rate, fill = ToHighlight),data=finaldf[which(finaldf$Race=="White"),],stat="identity")+
+  geom_bar(aes(x=State,y=death_rate, fill = ToHighlight),
+           data=finaldf[which(finaldf$Race=="White"),],stat="identity")+
   scale_fill_manual( values = c( "1"="tomato", "0"="gray" ), guide = FALSE )+
   theme_bw()+
-  theme(axis.text=element_text(size=6,angle=90),plot.title = element_text(hjust = 0.5))+
-  labs(title="Death Rate of covid by state, Race = White",x="State",y="Death Rate")
+  theme(axis.text=element_text(size=6,angle=90),
+        plot.title = element_text(hjust = 0.5))+
+  labs(title="Death Rate of covid by state, Race = White",
+       x="State",y="Death Rate")
 
 # generate barchart for Black group
 ggplot()+
@@ -102,8 +105,10 @@ ggplot()+
            stat="identity")+
   scale_fill_manual( values = c( "1"="tomato", "0"="gray" ), guide = FALSE )+
   theme_bw()+
-  theme(axis.text=element_text(size=6,angle=90),plot.title = element_text(hjust = 0.5))+
-  labs(title="Death Rate of covid by state, Race = Black",x="State",y="Death Rate")
+  theme(axis.text=element_text(size=6,angle=90),
+        plot.title = element_text(hjust = 0.5))+
+  labs(title="Death Rate of covid by state, Race = Black",
+       x="State",y="Death Rate")
 
 # generate barchart for Asian group
 ggplot()+
@@ -112,23 +117,32 @@ ggplot()+
            stat="identity")+
   scale_fill_manual( values = c( "1"="tomato", "0"="gray" ), guide = FALSE )+
   theme_bw()+
-  theme(axis.text=element_text(size=6,angle=90),plot.title = element_text(hjust = 0.5))+
-  labs(title="Death Rate of covid by state, Race = Asian",x="State",y="Death Rate")
+  theme(axis.text=element_text(size=6,angle=90),
+        plot.title = element_text(hjust = 0.5))+
+  labs(title="Death Rate of covid by state, Race = Asian",
+       x="State",y="Death Rate")
 
 # generate barchart for Hispanic group
 ggplot()+
-  geom_bar(aes(x=State,y=death_rate, fill = ToHighlight),data=finaldf[which(finaldf$Race=="Hispanic"),],stat="identity")+
+  geom_bar(aes(x=State,y=death_rate, fill = ToHighlight),
+           data=finaldf[which(finaldf$Race=="Hispanic"),],stat="identity")+
   scale_fill_manual( values = c( "1"="tomato", "0"="gray" ), guide = FALSE )+
   theme_bw()+
-  theme(axis.text=element_text(size=6,angle=90),plot.title = element_text(hjust = 0.5))+
-  labs(title="Death Rate of covid by state, Race = Hispanic",x="State",y="Death Rate")
+  theme(axis.text=element_text(size=6,angle=90),
+        plot.title = element_text(hjust = 0.5))+
+  labs(title="Death Rate of covid by state, Race = Hispanic",
+       x="State",y="Death Rate")
 
 # generate barchart for NHAI group
 ggplot()+
-  geom_bar(aes(x=State,y=death_rate, fill = ToHighlight),data=finaldf[which(finaldf$Race=="NHAI"),],stat="identity")+
-  scale_fill_manual( values = c( "1"="tomato", "0"="gray" ), guide = FALSE )+
+  geom_bar(aes(x=State,y=death_rate, fill = ToHighlight),
+           data=finaldf[which(finaldf$Race=="NHAI"),],stat="identity")+
+  scale_fill_manual( values = c( "1"="tomato", "0"="gray" ), 
+                     guide = FALSE )+
   theme_bw()+
-  theme(axis.text=element_text(size=6,angle=90),plot.title = element_text(hjust = 0.5))+
-  labs(title="Death Rate of covid by state, Race = NHAI",x="State",y="Death Rate")
+  theme(axis.text=element_text(size=6,angle=90),
+        plot.title = element_text(hjust = 0.5))+
+  labs(title="Death Rate of covid by state, Race = NHAI",
+       x="State",y="Death Rate")
 ```
 

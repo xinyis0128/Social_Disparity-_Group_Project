@@ -44,7 +44,8 @@ asian_non_high_school_grad_percentage <- asian_non_high_school_grads / asian_pop
 hispanic_non_high_school_grads <- education_data %>% 
   filter(Race == "Hispanic") %>% 
   select(NonHighSchoolGrad) * 1000
-hispanic_non_high_school_grad_percentage <- hispanic_non_high_school_grads / hispanic_pop
+hispanic_non_high_school_grad_percentage <- 
+  hispanic_non_high_school_grads / hispanic_pop
 
 ## Calculate number and percentage of high school grads and post secondary 
 ## education
@@ -83,7 +84,8 @@ asian_four_year_college_percentage <- asian_four_year_college / asian_pop
 hispanic_four_year_college <- education_data %>% 
   filter(Race == "Hispanic") %>% 
   select(FourYearCollegeGraduate) * 1000
-hispanic_four_year_college_percentage <- hispanic_four_year_college / hispanic_pop
+hispanic_four_year_college_percentage <- 
+  hispanic_four_year_college / hispanic_pop
 
 ## Calculate number and percentage of graduate degrees
 ## Numbers are in thousands, so need to adjust
@@ -112,7 +114,8 @@ bar_plot_non_high_school_grad <-
               as.vector(unlist(hispanic_non_high_school_grad_percentage))),
               ncol = 4, byrow = TRUE)
 colnames(bar_plot_non_high_school_grad) <- c(2016, 2017, 2018, 2019)
-rownames(bar_plot_non_high_school_grad) <- c("Asian", "White", "Black", "Hispanic")
+rownames(bar_plot_non_high_school_grad) <- 
+  c("Asian", "White", "Black", "Hispanic")
 
 barplot(bar_plot_non_high_school_grad, 
         main = "Percentage of Population without High School Degrees",
@@ -146,7 +149,8 @@ bar_plot_four_year_graduate <-
          ncol = 4, byrow = TRUE)
 
 colnames(bar_plot_four_year_graduate) <- c(2016, 2017, 2018, 2019)
-rownames(bar_plot_four_year_graduate) <- c("Asian", "White", "Black", "Hispanic")
+rownames(bar_plot_four_year_graduate) <- 
+  c("Asian", "White", "Black", "Hispanic")
 
 barplot(bar_plot_four_year_graduate, 
         main = "Percentage of Population with Four Year College Degree",
@@ -171,7 +175,4 @@ barplot(bar_plot_graduate_degree,
         args.legend = list(x = 'topright', bty = 'n', inset = c(-0.025, -0.05)),
         col = brewer.pal(n = 4, name = "YlOrRd"), 
         legend = rownames(bar_plot_graduate_degree), beside = TRUE)
-
-
-
 ```
