@@ -6,8 +6,6 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Social Disparity - Income
-
 ```{r, eval = FALSE}
 # 2019 region
 library(plotrix)
