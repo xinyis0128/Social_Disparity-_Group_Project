@@ -1,9 +1,18 @@
+---
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r test, eval=FALSE}
 library(tidyverse)
 library(utils)
 library(RColorBrewer)
 
 ## Load educational attainment data from the last five years
-education_data <- read.csv("EducationalAttainmentData.csv")
+education_data <- read.csv("./data/EducationalAttainmentData.csv")
 education_data$NonHighSchoolGrad <- rowSums(education_data[,3:9])
 education_data$PostSecondary <- rowSums(education_data[,10:13])
 education_data$FourYearCollegeGraduate <- education_data[,14]
@@ -11,7 +20,7 @@ education_data$GraduateDegree <- rowSums(education_data[,15:17])
 ## Add column for count of college graduates
 
 ## Load US population data, caluclate populations by race
-us_population_data <- read.csv("USPopulationData.csv")
+us_population_data <- read.csv("./data/USPopulationData.csv")
 us_pop_by_year <- select(us_population_data, TotalPopulation)
 hispanic_pop <- select(us_population_data, Hispanic) * us_pop_by_year
 black_pop <- select(us_population_data, Black) * us_pop_by_year
@@ -162,3 +171,7 @@ barplot(bar_plot_graduate_degree,
         args.legend = list(x = 'topright', bty = 'n', inset = c(-0.025, -0.05)),
         col = brewer.pal(n = 4, name = "YlOrRd"), 
         legend = rownames(bar_plot_graduate_degree), beside = TRUE)
+
+
+
+```
